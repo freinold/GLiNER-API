@@ -6,7 +6,7 @@
     "customManagers:githubActionsVersions", // manages _VERSION variables in GitHub Action workflows
     "helpers:pinGitHubActionDigestsToSemver", // pin to digest with semver as comment
     ":pinAllExceptPeerDependencies", // pin all dependencies except peer dependencies
-    "schedule:daily", // run daily
+    "schedule:weekly", // only weekly updates
     ":separateMultipleMajorReleases", // separate major updates of dependencies into separate PRs
     ":timezone(Europe/Berlin)", // sets correct timezone for schedule based operations
     "security:openssf-scorecard", // show OpenSSF badge on pull requests to evaluate security health metrics for dependencies
