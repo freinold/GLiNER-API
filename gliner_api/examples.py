@@ -9,8 +9,8 @@ from pydantic_settings import (
     YamlConfigSettingsSource,
 )
 
+from gliner_api import Entity
 from gliner_api.config import Config, get_config
-from gliner_api.datamodel import Entity
 
 config: Config = get_config()
 

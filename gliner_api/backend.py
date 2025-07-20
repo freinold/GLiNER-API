@@ -10,11 +10,11 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from gliner import GLiNER
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_403_FORBIDDEN
 
+from gliner_api import Entity
 from gliner_api.config import Config, get_config
 from gliner_api.datamodel import (
     BatchRequest,
     BatchResponse,
-    Entity,
     ErrorMessage,
     HealthCheckResponse,
     InfoResponse,
