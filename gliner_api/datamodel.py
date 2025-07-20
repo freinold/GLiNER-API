@@ -42,6 +42,8 @@ class InvokeRequest(BaseModel):
         default=config.default_threshold,
         description="Threshold for entity detection; if not set, uses default threshold (see gliner config from /api/info endpoint)",
         examples=[0.5],
+        ge=0.0,
+        le=1.0,
     )
     entity_types: list[str] = Field(
         default=config.default_entities,
@@ -89,6 +91,8 @@ class BatchRequest(BaseModel):
         default=config.default_threshold,
         description="Threshold for entity detection; if not set, uses default threshold (see gliner config from /api/info endpoint)",
         examples=[0.3],
+        ge=0.0,
+        le=1.0,
     )
     entity_types: list[str] = Field(
         default=config.default_entities,
