@@ -1,0 +1,36 @@
+{
+  "languages": {
+    "de": {
+      "dropdown_info": "Wählen Sie zu erkennende Entitäts-Klassen aus. Fügen Sie bei Bedarf benutzerdefinierte Klassen hinzu.",
+      "dropdown_label": "Entitäts-Klassen",
+      "input_info": "Text, der auf Entitäten analysiert werden soll.",
+      "input_label": "Eingabe",
+      "input_placeholder": "Text eingeben...\nSie können auch längere Texte hier einfügen.",
+      "options_deep_ner": "Deep NER aktivieren",
+      "options_info": "Deep NER: Hierarchische Entitätserkennung für verschachtelte Entitäten.\nMulti-Label: Entitäten können mehreren Klassen angehören.",
+      "options_label": "Zusätzliche Optionen (erweitert)",
+      "options_multi_label": "Multi-Label-Klassifikation aktivieren",
+      "outputs_highlighted_text": "Erkannte Entitäten",
+      "outputs_json": "Ursprüngliche Ausgabe",
+      "outputs_label": "Inferenzzeit",
+      "slider_info": "Mindest-Konfidenzwert für die Einbeziehung erkannter Entitäten in die Ausgabe.",
+      "slider_label": "Konfidenzgrenze"
+    },
+    "en": {
+      "dropdown_info": "Select entity types to detect. Add custom entity types as needed.",
+      "dropdown_label": "Entity Types",
+      "input_info": "Text to analyze for named entities.",
+      "input_label": "Input Text",
+      "input_placeholder": "Enter text...\nYou can also paste longer texts here.",
+      "options_deep_ner": "Enable Deep NER mode",
+      "options_info": "Deep NER: hierarchical entity detection for nested entities.\nMulti-label: entities can belong to multiple types.",
+      "options_label": "Additional Options (Advanced)",
+      "options_multi_label": "Enable multi-label classification",
+      "outputs_highlighted_text": "Detected Entities",
+      "outputs_json": "Raw Response Body",
+      "outputs_label": "Inference Time",
+      "slider_info": "Minimum confidence score for entities to be included in the response.",
+      "slider_label": "Confidence Threshold"
+    }
+  }
+}
