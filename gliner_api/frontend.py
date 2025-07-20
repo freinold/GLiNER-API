@@ -7,8 +7,11 @@ from httpx import AsyncClient, HTTPError, Response
 from stamina import retry_context
 
 from gliner_api.config import Config, get_config
+from gliner_api.examples import Examples, get_examples
 
 config: Config = get_config()
+examples: Examples = get_examples()
+
 client: AsyncClient = AsyncClient(
     base_url=f"http://localhost:{config.port}",
     headers={"Authorization": f"Bearer {config.api_key}"} if config.api_key is not None else None,
@@ -96,7 +99,7 @@ interface = gr.Interface(
             placeholder="Enter text...\nYou can also paste longer texts here.",
             lines=3,
             max_lines=15,
-            value="Steve Jobs founded Apple Inc. in Cupertino, CA on April 1, 1976.",
+            value=examples.invoke[0].text,
             info="Text to analyze for named entities.",
         ),
         gr.Slider(
@@ -104,14 +107,14 @@ interface = gr.Interface(
             minimum=0.0,
             maximum=1.0,
             step=0.05,
-            value=config.default_threshold,
+            value=examples.invoke[0].threshold,
             info="Minimum confidence score for entities to be included in the response.",
         ),
         gr.Dropdown(
             label="Entity Types",
             choices=config.default_entities,
             multiselect=True,
-            value=config.default_entities,
+            value=examples.invoke[0].entity_types,
             allow_custom_value=True,
             info="Select entity types to detect. Add custom entity types as needed.",
         ),
@@ -121,7 +124,11 @@ interface = gr.Interface(
                 ("Enable deep NER mode", "deep_ner"),
                 ("Enable multi-label classification", "multi_label"),
             ],
-            value=[],
+            value=[
+                value
+                for option, value in zip([not examples.invoke[0].flat_ner, examples.invoke[0].multi_label], ["deep_ner", "multi_label"])
+                if option
+            ],
             info="Deep NER: hierarchical entity detection for nested entities. Multi-label: entities can belong to multiple types.",
         ),
     ],
@@ -137,41 +144,16 @@ interface = gr.Interface(
     article=article,
     examples=[
         [
-            "Steve Jobs founded Apple Inc. in Cupertino, CA on April 1, 1976.",
-            0.5,
-            ["person", "organization", "location", "date"],
-            [],
-        ],
-        [
-            "Until her death in 2022, the head of the Windsor family, Queen Elizabeth, resided in London.",
-            0.3,
-            ["person", "organization", "location", "date"],
-            [],
-        ],
-        [
-            "The Eiffel Tower was completed in 1889 and is located in Paris, France.",
-            0.7,
-            ["location", "date"],
-            [],
-        ],
-        [
-            "Barack Obama served as the 44th President of the United States from 2009 to 2017.",
-            0.4,
-            ["person", "organization", "location", "date"],
-            ["multi_label"],
-        ],
-        [
-            "The Great Wall of China was built over several dynasties, starting in the 7th century BC.",
-            0.6,
-            ["location", "date"],
-            ["deep_ner"],
-        ],
-        [
-            "Albert Einstein developed the theory of relativity, which revolutionized modern physics.",
-            0.2,
-            ["person", "organization"],
-            ["deep_ner", "multi_label"],
-        ],
+            example.text,
+            example.threshold,
+            example.entity_types,
+            [
+                "deep_ner" if not example.flat_ner else "multi_label"
+                for option, value in zip([not example.flat_ner, example.multi_label], ["deep_ner", "multi_label"])
+                if option
+            ],
+        ]
+        for example in examples.invoke
     ],
     api_name=False,
     flagging_mode="never",
