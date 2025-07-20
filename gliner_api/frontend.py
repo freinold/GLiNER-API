@@ -147,11 +147,7 @@ interface = gr.Interface(
             example.text,
             example.threshold,
             example.entity_types,
-            [
-                "deep_ner" if not example.flat_ner else "multi_label"
-                for option, value in zip([not example.flat_ner, example.multi_label], ["deep_ner", "multi_label"])
-                if option
-            ],
+            [value for option, value in zip([not example.flat_ner, example.multi_label], ["deep_ner", "multi_label"]) if option],
         ]
         for example in examples.invoke
     ],
