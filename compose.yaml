@@ -1,7 +1,7 @@
 name: gliner-api
 services:
   gliner-api:
-    image: ghcr.io/freinold/gliner-api:latest@sha256:67f48c14a0e2ed7f36adbc2211932b304e558f8357da47f4a9adac86ccd45459
+    image: ghcr.io/freinold/gliner-api:latest@sha256:2d1fd8ec424055d3c7f08119b6e6865720d21e55252152cb36c192d713dd00ce
     ## Alternatively, you can build the image locally: choose either the CPU or GPU Dockerfile
     # build:
     #   context: .
