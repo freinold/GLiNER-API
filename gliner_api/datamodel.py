@@ -33,7 +33,7 @@ class Entity(BaseModel):
     )
 
 
-class DetectionRequest(BaseModel):
+class InvokeRequest(BaseModel):
     text: str = Field(
         description="Input text to analyze for entities",
         examples=["Steve Jobs founded Apple Inc. in Cupertino, CA on April 1, 1976."],
@@ -42,6 +42,8 @@ class DetectionRequest(BaseModel):
         default=config.default_threshold,
         description="Threshold for entity detection; if not set, uses default threshold (see gliner config from /api/info endpoint)",
         examples=[0.5],
+        ge=0.0,
+        le=1.0,
     )
     entity_types: list[str] = Field(
         default=config.default_entities,
@@ -60,7 +62,7 @@ class DetectionRequest(BaseModel):
     )
 
 
-class DetectionResponse(BaseModel):
+class InvokeResponse(BaseModel):
     entities: list[Entity] = Field(
         description="List of detected entities in the input text",
         examples=[
@@ -75,7 +77,7 @@ class DetectionResponse(BaseModel):
     )
 
 
-class BatchDetectionRequest(BaseModel):
+class BatchRequest(BaseModel):
     texts: list[str] = Field(
         description="List of input texts to analyze for entities",
         examples=[
@@ -89,6 +91,8 @@ class BatchDetectionRequest(BaseModel):
         default=config.default_threshold,
         description="Threshold for entity detection; if not set, uses default threshold (see gliner config from /api/info endpoint)",
         examples=[0.3],
+        ge=0.0,
+        le=1.0,
     )
     entity_types: list[str] = Field(
         default=config.default_entities,
@@ -107,7 +111,7 @@ class BatchDetectionRequest(BaseModel):
     )
 
 
-class BatchDetectionResponse(BaseModel):
+class BatchResponse(BaseModel):
     entities: list[list[Entity]] = Field(
         description="List of lists of detected entities for each input text",
         examples=[
