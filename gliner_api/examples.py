@@ -30,6 +30,26 @@ class Examples(BaseSettings):
             },
             {
                 "text": "Until her death in 2022, the head of the Windsor family, Queen Elizabeth, resided in London.",
+                "entity_types": ["person", "organization", "location", "date"],
+                "entities": [],
+            },
+            {
+                "text": "The Eiffel Tower was completed in 1889 and is located in Paris, France.",
+                "entity_types": ["building", "location", "date"],
+                "entities": [],
+            },
+            {
+                "text": "Barack Obama served as the 44th President of the United States from 2009 to 2017.",
+                "threshold": 0.4,
+                "entity_types": ["person", "organization", "location", "date", "job title"],
+                "flat_ner": False,
+                "entities": [],
+            },
+            {
+                "text": "Albert Einstein developed the theory of relativity, which revolutionized modern physics.",
+                "threshold": 0.2,
+                "entity_types": ["person", "research field", "topic", "physical law"],
+                "multi_label": True,
                 "entities": [],
             },
         ]
