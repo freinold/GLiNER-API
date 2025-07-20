@@ -27,17 +27,19 @@ class Examples(BaseSettings):
                     Entity(start=39, end=49, text="California", type="location", score=0.99),
                     Entity(start=53, end=66, text="April 1, 1976", type="date", score=0.68),
                 ],
-            }
+            },
+            {
+                "text": "Until her death in 2022, the head of the Windsor family, Queen Elizabeth, resided in London.",
+                "entities": [],
+            },
         ]
     )
     batch: list["BatchExample"] = Field(
         default=[
             {
                 "texts": [
-                    [
-                        "Steve Jobs founded Apple Inc. in Cupertino, CA on April 1, 1976.",
-                        "Until her death in 2022, the head of the Windsor family, Queen Elizabeth, resided in London.",
-                    ],
+                    "Steve Jobs founded Apple Inc. in Cupertino, CA on April 1, 1976.",
+                    "Until her death in 2022, the head of the Windsor family, Queen Elizabeth, resided in London.",
                 ],
                 "entities": [
                     [
