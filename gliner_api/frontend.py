@@ -7,12 +7,16 @@ from httpx import AsyncClient, HTTPError, Response
 from stamina import retry_context
 
 from gliner_api.config import Config, get_config
+from gliner_api.translations import Translations
 
 config: Config = get_config()
 client: AsyncClient = AsyncClient(
     base_url=f"http://localhost:{config.port}",
     headers={"Authorization": f"Bearer {config.api_key}"} if config.api_key is not None else None,
 )
+
+languages: dict[str, dict[str, str]] = Translations().model_dump()["languages"]
+i18n: gr.I18n = gr.I18n(**languages)
 
 
 async def call_invoke(
@@ -92,45 +96,45 @@ interface = gr.Interface(
     fn=call_invoke,
     inputs=[
         gr.Textbox(
-            label="Input Text",
-            placeholder="Enter text...\nYou can also paste longer texts here.",
+            label=i18n("input_label"),
+            placeholder=i18n("input_placeholder"),
             lines=3,
             max_lines=15,
             value="Steve Jobs founded Apple Inc. in Cupertino, CA on April 1, 1976.",
-            info="Text to analyze for named entities.",
+            info=i18n("input_info"),
         ),
         gr.Slider(
-            label="Threshold",
+            label=i18n("slider_label"),
             minimum=0.0,
             maximum=1.0,
             step=0.05,
             value=config.default_threshold,
-            info="Minimum confidence score for entities to be included in the response.",
+            info=i18n("slider_info"),
         ),
         gr.Dropdown(
-            label="Entity Types",
+            label=i18n("dropdown_label"),
             choices=config.default_entities,
             multiselect=True,
             value=config.default_entities,
             allow_custom_value=True,
-            info="Select entity types to detect. Add custom entity types as needed.",
+            info=i18n("dropdown_info"),
         ),
         gr.CheckboxGroup(
-            label="Additional Options (Advanced)",
+            label=i18n("options_label"),
             choices=[
-                ("Enable deep NER mode", "deep_ner"),
-                ("Enable multi-label classification", "multi_label"),
+                (i18n("options_deep_ner"), "deep_ner"),
+                (i18n("options_multi_label"), "multi_label"),
             ],
             value=[],
-            info="Deep NER: hierarchical entity detection for nested entities. Multi-label: entities can belong to multiple types.",
+            info=i18n("options_info"),
         ),
     ],
     outputs=[
         gr.HighlightedText(
-            label="Detected Entities",
+            label=i18n("outputs_highlighted_text"),
         ),
-        gr.Label(label="Inference Time"),
-        gr.JSON(label="Raw Response Body"),
+        gr.Label(label=i18n("outputs_label")),
+        gr.JSON(label=i18n("outputs_json")),
     ],
     title="GLiNER API - Frontend",
     description=description,
@@ -176,5 +180,4 @@ interface = gr.Interface(
     api_name=False,
     flagging_mode="never",
     theme=gr_themes.Base(primary_hue="teal"),
-    submit_btn="Detect Entities",
 )
