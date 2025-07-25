@@ -29,7 +29,7 @@ def main() -> None:
         from fastapi.staticfiles import StaticFiles
         from gradio import mount_gradio_app
 
-        from gliner_api.frontend import client, interface
+        from gliner_api.frontend import client, i18n, interface
 
         app.mount("/static", StaticFiles(directory="static"), name="static")
         mount_gradio_app(
@@ -37,6 +37,7 @@ def main() -> None:
             interface,
             path="",
             show_api=False,
+            i18n=i18n,
         )
 
         @app.on_event("shutdown")
