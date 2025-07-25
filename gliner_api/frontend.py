@@ -91,6 +91,17 @@ article: str = """
 </div>
 """
 
+
+def get_checkbox_options(flat_ner: bool, multi_label: bool) -> list[str]:
+    """Convert boolean flags to checkbox option strings."""
+    options = []
+    if not flat_ner:
+        options.append("deep_ner")
+    if multi_label:
+        options.append("multi_label")
+    return options
+
+
 interface = gr.Interface(
     fn=call_invoke,
     inputs=[
@@ -124,11 +135,10 @@ interface = gr.Interface(
                 ("Enable deep NER mode", "deep_ner"),
                 ("Enable multi-label classification", "multi_label"),
             ],
-            value=[
-                value
-                for option, value in zip([not examples.invoke[0].flat_ner, examples.invoke[0].multi_label], ["deep_ner", "multi_label"])
-                if option
-            ],
+            value=get_checkbox_options(
+                flat_ner=examples.invoke[0].flat_ner,
+                multi_label=examples.invoke[0].multi_label,
+            ),
             info="Deep NER: hierarchical entity detection for nested entities. Multi-label: entities can belong to multiple types.",
         ),
     ],
@@ -147,7 +157,7 @@ interface = gr.Interface(
             example.text,
             example.threshold,
             example.entity_types,
-            [value for option, value in zip([not example.flat_ner, example.multi_label], ["deep_ner", "multi_label"]) if option],
+            get_checkbox_options(example.flat_ner, example.multi_label),
         ]
         for example in examples.invoke
     ],
