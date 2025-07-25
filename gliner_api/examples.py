@@ -21,11 +21,10 @@ class Examples(BaseSettings):
             {
                 "text": "Steve Jobs founded Apple Inc. in Cupertino, CA on April 1, 1976.",
                 "entities": [
-                    Entity(start=0, end=10, text="Steve Jobs", type="person", score=0.99),
-                    Entity(start=19, end=24, text="Apple", type="organization", score=0.98),
-                    Entity(start=28, end=37, text="Cupertino", type="location", score=0.98),
-                    Entity(start=39, end=49, text="California", type="location", score=0.99),
-                    Entity(start=53, end=66, text="April 1, 1976", type="date", score=0.68),
+                    Entity(start=0, end=10, text="Steve Jobs", type="person", score=0.88),
+                    Entity(start=19, end=29, text="Apple Inc.", type="organization", score=0.84),
+                    Entity(start=33, end=46, text="Cupertino, CA", type="location", score=0.63),
+                    Entity(start=50, end=63, text="April 1, 1976", type="date", score=0.69),
                 ],
             },
             {
