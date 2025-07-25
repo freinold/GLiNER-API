@@ -10,16 +10,16 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from gliner import GLiNER
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_403_FORBIDDEN
 
+from gliner_api import Entity
 from gliner_api.config import Config, get_config
 from gliner_api.datamodel import (
-    BatchDetectionRequest,
-    BatchDetectionResponse,
-    DetectionRequest,
-    DetectionResponse,
-    Entity,
+    BatchRequest,
+    BatchResponse,
     ErrorMessage,
     HealthCheckResponse,
     InfoResponse,
+    InvokeRequest,
+    InvokeResponse,
     deep_entity_list_adapter,
     entity_list_adapter,
 )
@@ -105,17 +105,17 @@ if not config.frontend_enabled:
 @app.post(
     path="/api/invoke",
     responses={
-        200: {"model": DetectionResponse},
+        200: {"model": InvokeResponse},
         401: {"model": ErrorMessage},
         403: {"model": ErrorMessage},
         500: {"model": ErrorMessage},
     },
     dependencies=[Depends(dependency=verify_api_key)],
 )
-async def detect_entities(
-    request: DetectionRequest,
-    response: Response,
-) -> DetectionResponse:
+async def invoke(
+    request: InvokeRequest,
+    http_response: Response,
+) -> InvokeResponse:
     """Detect entities in a single text."""
     requests_metric.labels("POST", "/api/invoke").inc()
 
@@ -129,7 +129,7 @@ async def detect_entities(
         )
 
     text_length: int = len(request.text)
-    response.headers["X-Text-Length"] = str(text_length)
+    http_response.headers["X-Text-Length"] = str(text_length)
 
     try:
         start_time: float = perf_counter()
@@ -142,13 +142,13 @@ async def detect_entities(
         )
         inference_time: float = perf_counter() - start_time
         inference_time_metric.labels("POST", "/api/invoke").observe(inference_time)
-        response.headers["X-Inference-Time"] = f"{inference_time:.4f}"
+        http_response.headers["X-Inference-Time"] = f"{inference_time:.4f}"
         logger.debug(f"Entity detection took {inference_time:.4f} seconds for text of length {text_length}.")
 
         parsed_entities: list[Entity] = entity_list_adapter.validate_python(raw_entities)
-        response.headers["X-Entity-Count"] = str(len(parsed_entities))
+        http_response.headers["X-Entity-Count"] = str(len(parsed_entities))
 
-        return DetectionResponse(entities=parsed_entities)
+        return InvokeResponse(entities=parsed_entities)
 
     except Exception as e:
         failed_inference_metric.labels("POST", "/api/invoke").inc()
@@ -158,17 +158,17 @@ async def detect_entities(
 @app.post(
     path="/api/batch",
     responses={
-        200: {"model": BatchDetectionResponse},
+        200: {"model": BatchResponse},
         401: {"model": ErrorMessage},
         403: {"model": ErrorMessage},
         500: {"model": ErrorMessage},
     },
     dependencies=[Depends(dependency=verify_api_key)],
 )
-async def detect_entities_batch(
-    request: BatchDetectionRequest,
-    response: Response,
-) -> BatchDetectionResponse:
+async def batch(
+    request: BatchRequest,
+    http_response: Response,
+) -> BatchResponse:
     """Detect entities in multiple texts."""
     requests_metric.labels("POST", "/api/batch").inc()
 
@@ -176,7 +176,7 @@ async def detect_entities_batch(
         raise HTTPException(status_code=500, detail="Server Error: No GLiNER model loaded")
 
     total_text_length: int = sum(len(text) for text in request.texts)
-    response.headers["X-Text-Length"] = str(total_text_length)
+    http_response.headers["X-Text-Length"] = str(total_text_length)
 
     try:
         start_time: float = perf_counter()
@@ -189,15 +189,15 @@ async def detect_entities_batch(
         )
         inference_time: float = perf_counter() - start_time
         inference_time_metric.labels("POST", "/api/batch").observe(inference_time)
-        response.headers["X-Inference-Time"] = f"{inference_time:.4f}"
+        http_response.headers["X-Inference-Time"] = f"{inference_time:.4f}"
         logger.debug(
             f"Batch entity detection took {inference_time:.4f} seconds for {len(request.texts)} texts of total length {total_text_length}."
         )
 
         parsed_entities_list: list[list[Entity]] = deep_entity_list_adapter.validate_python(raw_entities_list)
-        response.headers["X-Entity-Count"] = str(sum(len(entities) for entities in parsed_entities_list))
+        http_response.headers["X-Entity-Count"] = str(sum(len(entities) for entities in parsed_entities_list))
 
-        return BatchDetectionResponse(entities=parsed_entities_list)
+        return BatchResponse(entities=parsed_entities_list)
 
     except Exception as e:
         failed_inference_metric.labels("POST", "/api/batch").inc()
