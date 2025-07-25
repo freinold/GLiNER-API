@@ -10,9 +10,7 @@ from pydantic_settings import (
 )
 
 from gliner_api import Entity
-from gliner_api.config import Config, get_config
-
-config: Config = get_config()
+from gliner_api.config import get_config
 
 
 class Examples(BaseSettings):
@@ -104,8 +102,8 @@ class Examples(BaseSettings):
 
 class InvokeExample(BaseSettings):
     text: str
-    threshold: float = Field(ge=0.0, le=1.0, default=config.default_threshold)
-    entity_types: list[str] = Field(default=config.default_entities)
+    threshold: float = Field(ge=0.0, le=1.0, default_factory=get_config().default_threshold)
+    entity_types: list[str] = Field(default_factory=get_config().default_entities)
     flat_ner: bool = True
     multi_label: bool = False
     entities: list[Entity]
@@ -113,8 +111,8 @@ class InvokeExample(BaseSettings):
 
 class BatchExample(BaseSettings):
     texts: list[str]
-    threshold: float = Field(ge=0.0, le=1.0, default=config.default_threshold)
-    entity_types: list[str] = Field(default=config.default_entities)
+    threshold: float = Field(ge=0.0, le=1.0, default_factory=get_config().default_threshold)
+    entity_types: list[str] = Field(default_factory=get_config().default_entities)
     flat_ner: bool = True
     multi_label: bool = False
     entities: list[list[Entity]]
