@@ -1,10 +1,9 @@
 from pydantic import BaseModel, Field, TypeAdapter
 
 from gliner_api import Entity
-from gliner_api.config import Config, get_config
+from gliner_api.config import get_config
 from gliner_api.examples import Examples, get_examples
 
-config: Config = get_config()
 examples: Examples = get_examples()
 
 
@@ -19,14 +18,14 @@ class InvokeRequest(BaseModel):
         examples=[example.text for example in examples.invoke],
     )
     threshold: float = Field(
-        default=config.default_threshold,
+        default_factory=lambda: get_config().default_threshold,
         description="Threshold for entity detection; if not set, uses default threshold (see gliner config from /api/info endpoint)",
         examples=[example.threshold for example in examples.invoke],
         ge=0.0,
         le=1.0,
     )
     entity_types: list[str] = Field(
-        default=config.default_entities,
+        default_factory=lambda: get_config().default_entities,
         description="List of entity types to detect; if not set, uses default entities (see gliner config from /api/info endpoint)",
         examples=[example.entity_types for example in examples.invoke],
     )
@@ -56,14 +55,14 @@ class BatchRequest(BaseModel):
         min_length=1,
     )
     threshold: float = Field(
-        default=config.default_threshold,
+        default_factory=lambda: get_config().default_threshold,
         description="Threshold for entity detection; if not set, uses default threshold (see gliner config from /api/info endpoint)",
         examples=[example.threshold for example in examples.batch],
         ge=0.0,
         le=1.0,
     )
     entity_types: list[str] = Field(
-        default=config.default_entities,
+        default_factory=lambda: get_config().default_entities,
         description="List of entity types to detect; if not set, uses default entities (see gliner config from /api/info endpoint)",
         examples=[example.entity_types for example in examples.batch],
     )
@@ -95,29 +94,29 @@ class HealthCheckResponse(BaseModel):
 
 class InfoResponse(BaseModel):
     model_id: str = Field(
-        default=config.model_id,
+        default_factory=lambda: get_config().model_id,
         description="The Huggingface model ID for a GLiNER model.",
     )
     default_entities: list[str] = Field(
-        default=config.default_entities,
+        default_factory=lambda: get_config().default_entities,
         description="The default entities to be detected, used if request includes no specific entities.",
     )
     default_threshold: float = Field(
-        default=config.default_threshold,
+        default_factory=lambda: get_config().default_threshold,
         description="The default threshold for entity detection, used if request includes no specific threshold.",
         ge=0.0,
         le=1.0,
     )
     api_key_required: bool = Field(
-        default=config.api_key is not None,
+        default=lambda: get_config().api_key is not None,
         description="Whether an API key is required for requests",
     )
     configured_use_case: str = Field(
-        default=config.use_case,
+        default=lambda: get_config().use_case,
         description="The configured use case for this deployment",
     )
     onnx_enabled: bool = Field(
-        default=config.onnx_enabled,
+        default=lambda: get_config().onnx_enabled,
         description="Whether the GLiNER model is loaded as an ONNX model",
     )
 
