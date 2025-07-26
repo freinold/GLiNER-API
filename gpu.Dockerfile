@@ -1,4 +1,4 @@
-# Use a full image with uv pre-installed as builder
+# Use a NVIDIA CUDA development image as builder
 FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04 AS builder
 
 # Install build tools needed for some packages
@@ -14,20 +14,38 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 # Install the project into `/app`
 WORKDIR /app
 
+# Copy the uv binary from the uv image
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
+
+RUN mkdir /app/python && \
+    mkdir /app/bin 
+
+ENV UV_PYTHON_INSTALL_DIR=/app/python
+ENV UV_PYTHON_BIN_DIR=/app/bin
+ENV PATH="/app/bin:$PATH"
+
+# Install the correct python version
+RUN --mount=type=bind,source=.python-version,target=/app/.python-version \
+    uv python install
+
 # Enable bytecode compilation
 ENV UV_COMPILE_BYTECODE=1
-
 # Copy from the cache instead of linking since it's a mounted volume
 ENV UV_LINK_MODE=copy
 
-# Copy the application files into the container
-COPY . /app
-
-# Install the dependencies
+# Install the transitive dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --no-dev --extra gpu --extra frontend
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --no-dev --extra gpu --extra frontend --locked --no-install-project
 
-# Use slim image as runner
+ADD . /app
+
+# Install the project
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --no-dev --extra gpu --extra frontend --locked
+
+# Use a NVIDIA CUDA runtime image as runner
 FROM docker.io/nvidia/cuda:12.8.1-cudnn-runtime-ubuntu24.04 AS runner
 
 # Metadata for the image
@@ -49,9 +67,9 @@ LABEL org.opencontainers.image.authors='Fabian Reinold <contact@freinold.eu>' \
 # Install the project into `/app`
 WORKDIR /app
 
-# Create a non-root user and group with UID/GID 1000
-RUN groupadd -g 1000 appuser && \
-    useradd -m -u 1000 -g appuser appuser
+# Create a non-root user and group with UID/GID 1001
+RUN groupadd -g 1001 appuser && \
+    useradd -m -u 1001 -g appuser appuser
 
 # Set cache directory for Huggingface Models and set ownership to appuser
 RUN mkdir -p /app/huggingface && chown -R appuser:appuser /app/huggingface
@@ -74,6 +92,6 @@ ENV PYTHONWARNINGS="ignore"
 USER appuser
 
 # Reset the entrypoint, don't invoke `uv`
-ENTRYPOINT ["python", "main.py"]
+ENTRYPOINT ["/app/.venv/bin/python", "main.py"]
 
 CMD ["--host", "0.0.0.0", "--port", "8080"]
