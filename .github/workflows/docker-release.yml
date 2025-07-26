@@ -17,7 +17,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: blacksmith-4vcpu-ubuntu-2404
+    runs-on: ubuntu-latest
 
     permissions:
       actions: write # required by actions/cache to save new entries
