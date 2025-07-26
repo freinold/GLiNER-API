@@ -8,6 +8,7 @@ from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from gliner import GLiNER
+from onnxruntime import get_device  # ty: ignore[possibly-unbound-import]
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_403_FORBIDDEN
 
 from gliner_api import Entity
@@ -37,10 +38,12 @@ logger.debug(f"Configuration:\n{config.model_dump_json(indent=2)}")
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     """Lifespan event handler to initialize GLiNER model and configuration."""
-    app_state_metric.state("starting")
     global gliner
-    logger.info("Initializing GLiNER API...")
-    logger.info(f"Loading GLiNER model {config.model_id}...")
+    app_state_metric.state("starting")
+    logger.info("Initializing GLiNER API")
+    logger.info(f"Running on device {get_device()}")
+    logger.info(f"Loading GLiNER model '{config.model_id}'")
+
     try:
         gliner = GLiNER.from_pretrained(
             config.model_id,
