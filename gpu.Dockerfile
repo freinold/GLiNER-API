@@ -92,6 +92,6 @@ ENV PYTHONWARNINGS="ignore"
 USER appuser
 
 # Reset the entrypoint, don't invoke `uv`
-ENTRYPOINT ["/app/.venv/bin/python", "main.py"]
+ENTRYPOINT ["python", "main.py"]
 
 CMD ["--host", "0.0.0.0", "--port", "8080"]
