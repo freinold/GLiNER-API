@@ -2,7 +2,7 @@
 
 # gliner-api
 
-## A minimal FastAPI app serving GLiNER models
+## Easily configurable API & frontend providing simple access to dynamic NER models
 
 [![Hugging Face Space](https://img.shields.io/badge/HuggingFace-Space-ffe720?logo=huggingface)](https://huggingface.co/spaces/bigscience/bloom-demo)
 [![Python 3.12.11](https://img.shields.io/badge/Python-3.12.11-3776ab?logo=python)](.python-version)

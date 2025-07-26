@@ -62,7 +62,7 @@ LABEL org.opencontainers.image.authors='Fabian Reinold <contact@freinold.eu>' \
     org.opencontainers.image.source='https://github.com/freinold/gliner-api' \
     org.opencontainers.image.licenses='MIT' \
     org.opencontainers.image.title='gliner-api' \
-    org.opencontainers.image.description='A minimal FastAPI app serving GLiNER models; this image is built for GPU only.'
+    org.opencontainers.image.description='Easily configurable API & frontend providing simple access to dynamic NER models; this image is built for GPU only.'
 
 # Install the project into `/app`
 WORKDIR /app
