@@ -108,15 +108,15 @@ class InfoResponse(BaseModel):
         le=1.0,
     )
     api_key_required: bool = Field(
-        default=lambda: get_config().api_key is not None,
+        default_factory=lambda: get_config().api_key is not None,
         description="Whether an API key is required for requests",
     )
     configured_use_case: str = Field(
-        default=lambda: get_config().use_case,
+        default_factory=lambda: get_config().use_case,
         description="The configured use case for this deployment",
     )
     onnx_enabled: bool = Field(
-        default=lambda: get_config().onnx_enabled,
+        default_factory=lambda: get_config().onnx_enabled,
         description="Whether the GLiNER model is loaded as an ONNX model",
     )
 
