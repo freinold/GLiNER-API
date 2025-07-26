@@ -4,6 +4,9 @@
 
 ## A minimal FastAPI app serving GLiNER models
 
+[![Hugging Face Space](https://img.shields.io/badge/HuggingFace-Space-ffe720?logo=huggingface)](https://huggingface.co/spaces/bigscience/bloom-demo)
+[![Python 3.12.11](https://img.shields.io/badge/Python-3.12.11-3776ab?logo=python)](.python-version)
+[![GLiNER](https://img.shields.io/badge/GLiNER-0.2.21-e32e29)](https://github.com/urchade/GLiNER)
 [![License](https://img.shields.io/github/license/freinold/gliner-api)](https://github.com/freinold/gliner-api/blob/main/LICENSE)
 [![CodeQL](https://github.com/freinold/gliner-api/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/freinold/gliner-api/actions/workflows/github-code-scanning/codeql)
 [![Build Container Image](https://github.com/freinold/gliner-api/actions/workflows/docker-release.yml/badge.svg)](https://github.com/freinold/gliner-api/actions/workflows/docker-release.yml)
