@@ -1,7 +1,7 @@
 [project]
 name = "gliner-api"
 version = "0.1.0"
-description = "A minimal FastAPI app serving GLiNER models"
+description = "Easily configurable API & frontend providing simple access to dynamic NER models"
 readme = "README.md"
 requires-python = "==3.12.11"
 dependencies = [
@@ -14,8 +14,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-cpu = ["torch==2.7.1", "gliner[tokenizers]==0.2.21"]
-gpu = ["torch==2.7.1", "gliner[gpu,tokenizers]==0.2.21"]
+cpu = ["torch==2.7.1", "gliner[tokenizers]==0.2.21", "onnxruntime==1.22.1"]
+gpu = [
+    "torch==2.7.1",
+    "gliner[gpu,tokenizers]==0.2.21",
+    "onnxruntime-gpu==1.22.0",
+]
 frontend = ["gradio==5.38.2", "httpx==0.28.1", "stamina==25.1.0"]
 
 [tool.uv]

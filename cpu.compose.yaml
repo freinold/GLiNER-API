@@ -1,7 +1,7 @@
 name: gliner-api
 services:
   gliner-api:
-    image: ghcr.io/freinold/gliner-api:latest@sha256:2d1fd8ec424055d3c7f08119b6e6865720d21e55252152cb36c192d713dd00ce
+    image: ghcr.io/freinold/gliner-api:latest
     ## Alternatively, you can build the image locally: choose either the CPU or GPU Dockerfile
     # build:
     #   context: .
@@ -14,8 +14,7 @@ services:
     tty: true
     volumes:
       - "${HOME}/.cache/huggingface:/app/huggingface"
-      - "./example_configs/general_onnx.yaml:/app/config.yaml:ro"
-    environment:
-      []
+      - "./example_configs/pii+phi_quantized.yaml:/app/config.yaml:ro"
+    environment: []
       # If you want to secure your deployment, set your API key here
       # - GLINER_API_API_KEY=CHANGEME

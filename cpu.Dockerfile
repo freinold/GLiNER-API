@@ -20,12 +20,17 @@ ENV UV_COMPILE_BYTECODE=1
 # Copy from the cache instead of linking since it's a mounted volume
 ENV UV_LINK_MODE=copy
 
-# Copy the application files into the container
+# Install the transitive dependencies
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --no-dev --extra cpu --extra frontend --locked --no-install-project
+
 COPY . /app
 
-# Install the dependencies
+# Install the project
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --no-dev --extra cpu --extra frontend
+    uv sync --no-dev --extra cpu --extra frontend --locked
 
 # Use slim image as runner
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim@sha256:74b8fe8ec5931f3930cfb6c87b46aeb1dbd497a609f6abf860fd0f4390f8b040 AS runner
@@ -44,25 +49,24 @@ LABEL org.opencontainers.image.authors='Fabian Reinold <contact@freinold.eu>' \
     org.opencontainers.image.source='https://github.com/freinold/gliner-api' \
     org.opencontainers.image.licenses='MIT' \
     org.opencontainers.image.title='gliner-api' \
-    org.opencontainers.image.description='A minimal FastAPI app serving GLiNER models; this image is built for CPU only.'
+    org.opencontainers.image.description='Easily configurable API & frontend providing simple access to dynamic NER models; this image is built for CPU only.'
 
 # Install the project into `/app`
 WORKDIR /app
 
-# Nur das, was du wirklich brauchst, übernehmen:
-COPY --from=builder /app /app
-COPY --from=builder /app/.venv /app/.venv
-
-# Place executables in the environment at the front of the path
-ENV PATH="/app/.venv/bin:$PATH"
-
-# Create a non-root user and group with UID/GID 1000
-RUN groupadd -g 1000 appuser && \
-    useradd -m -u 1000 -g appuser appuser
+# Create a non-root user and group with UID/GID 1001
+RUN groupadd -g 1001 appuser && \
+    useradd -m -u 1001 -g appuser appuser
 
 # Set cache directory for Huggingface Models and set ownership to appuser
 RUN mkdir -p /app/huggingface && chown -R appuser:appuser /app/huggingface
 ENV HF_HOME=/app/huggingface
+
+# Copy the application files from the builder stage
+COPY --from=builder --chown=appuser:appuser /app /app
+
+# Place executables in the environment at the front of the path
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Disable tqdm for cleaner logs
 ENV TQDM_DISABLE=1

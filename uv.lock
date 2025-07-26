@@ -617,6 +617,7 @@ dependencies = [
 [package.optional-dependencies]
 cpu = [
     { name = "gliner", extra = ["tokenizers"], marker = "extra == 'extra-10-gliner-api-cpu'" },
+    { name = "onnxruntime" },
     { name = "torch", version = "2.7.1", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform == 'darwin' and extra == 'extra-10-gliner-api-cpu') or (extra == 'extra-10-gliner-api-cpu' and extra == 'extra-10-gliner-api-gpu')" },
     { name = "torch", version = "2.7.1+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-10-gliner-api-cpu') or (extra == 'extra-10-gliner-api-cpu' and extra == 'extra-10-gliner-api-gpu')" },
 ]
@@ -627,6 +628,7 @@ frontend = [
 ]
 gpu = [
     { name = "gliner", extra = ["gpu", "tokenizers"], marker = "extra == 'extra-10-gliner-api-gpu'" },
+    { name = "onnxruntime-gpu" },
     { name = "torch", version = "2.7.1+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
 ]
 
@@ -647,6 +649,8 @@ requires-dist = [
     { name = "gradio", marker = "extra == 'frontend'", specifier = "==5.38.2" },
     { name = "httpx", marker = "extra == 'frontend'", specifier = "==0.28.1" },
     { name = "huggingface-hub", specifier = "==0.34.1" },
+    { name = "onnxruntime", marker = "extra == 'cpu'", specifier = "==1.22.1" },
+    { name = "onnxruntime-gpu", marker = "extra == 'gpu'", specifier = "==1.22.0" },
     { name = "prometheus-client", specifier = "==0.22.1" },
     { name = "pydantic-settings", specifier = "==2.10.1" },
     { name = "stamina", marker = "extra == 'frontend'", specifier = "==25.1.0" },
@@ -2572,7 +2576,7 @@ wheels = [
 
 [[package]]
 name = "transformers"
-version = "4.53.3"
+version = "4.54.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "filelock" },
@@ -2586,9 +2590,9 @@ dependencies = [
     { name = "tokenizers" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f1/5c/49182918b58eaa0b4c954fd0e37c79fc299e5643e69d70089d0b0eb0cd9b/transformers-4.53.3.tar.gz", hash = "sha256:b2eda1a261de79b78b97f7888fe2005fc0c3fabf5dad33d52cc02983f9f675d8", size = 9197478, upload-time = "2025-07-22T07:30:51.51Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fb/4b/3341d2fade52634d877476f4ed5fa8f7bf3f1e867bfba76f0fb341e2885f/transformers-4.54.0.tar.gz", hash = "sha256:843da4d66a573cef3d1b2e7a1d767e77da054621e69d9f3faff761e55a1f8203", size = 9510412, upload-time = "2025-07-25T18:58:20.826Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/41/b1/d7520cc5cb69c825599042eb3a7c986fa9baa8a8d2dea9acd78e152c81e2/transformers-4.53.3-py3-none-any.whl", hash = "sha256:5aba81c92095806b6baf12df35d756cf23b66c356975fb2a7fa9e536138d7c75", size = 10826382, upload-time = "2025-07-22T07:30:48.458Z" },
+    { url = "https://files.pythonhosted.org/packages/cc/34/4d82dc596764de9d14285f8ed53b50896bf05fbbcd71a82c6d174b3ab8c7/transformers-4.54.0-py3-none-any.whl", hash = "sha256:c96e607f848625965b76c677b2c2576f2c7b7097c1c5292b281919d90675a25e", size = 11176597, upload-time = "2025-07-25T18:58:17.677Z" },
 ]
 
 [[package]]

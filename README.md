@@ -2,8 +2,11 @@
 
 # gliner-api
 
-## A minimal FastAPI app serving GLiNER models.
+## Easily configurable API & frontend providing simple access to dynamic NER models
 
+[![Hugging Face Space](https://img.shields.io/badge/HuggingFace-Space-ffe720?logo=huggingface)](https://huggingface.co/spaces/bigscience/bloom-demo)
+[![Python 3.12.11](https://img.shields.io/badge/Python-3.12.11-3776ab?logo=python)](.python-version)
+[![GLiNER](https://img.shields.io/badge/GLiNER-0.2.21-e32e29)](https://github.com/urchade/GLiNER)
 [![License](https://img.shields.io/github/license/freinold/gliner-api)](https://github.com/freinold/gliner-api/blob/main/LICENSE)
 [![CodeQL](https://github.com/freinold/gliner-api/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/freinold/gliner-api/actions/workflows/github-code-scanning/codeql)
 [![Build Container Image](https://github.com/freinold/gliner-api/actions/workflows/docker-release.yml/badge.svg)](https://github.com/freinold/gliner-api/actions/workflows/docker-release.yml)
@@ -47,6 +50,8 @@ You can either build the container yourself or use a prebuilt image from GitHub 
 
 #### Run prebuilt container (recommended)
 
+**CPU version:**
+
 ```bash
 docker run \
   -p 8080:8080 \
@@ -55,6 +60,20 @@ docker run \
   -v $HOME/.cache/huggingface:/app/huggingface \
   ghcr.io/freinold/gliner-api:latest
 ```
+
+**GPU version:**
+
+```bash
+docker run \
+  --gpus all \
+  -p 8080:8080 \
+  -p 9090:9090 \
+  -v $(pwd)/config.yaml:/app/config.yaml \
+  -v $HOME/.cache/huggingface:/app/huggingface \
+  ghcr.io/freinold/gliner-api-gpu:latest
+```
+
+**Mounting volumes:**
 
 - `-v $(pwd)/config.yaml:/app/config.yaml` mounts your config file (edit as needed)
 - `-v $HOME/.cache/huggingface:/app/huggingface` mounts your Huggingface cache for faster model loading
@@ -72,21 +91,87 @@ docker build \
 docker run --rm \
   -p 8080:8080 \
   -p 9090:9090 \
-  -v $(pwd)/config.yaml:/app/config.yaml \
+  -v $(pwd)/example_configs/general.yaml:/app/config.yaml \
   -v $HOME/.cache/huggingface:/app/huggingface \
   gliner-api
 ```
+
+<details>
+<summary>PowerShell version</summary>
+
+```powershell
+docker build `
+  -f cpu.Dockerfile `
+  --build-arg IMAGE_CREATED="$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ssZ')" `
+  --build-arg IMAGE_REVISION="$(git rev-parse HEAD)" `
+  --build-arg IMAGE_VERSION="$(git describe --tags --always)" `
+  -t gliner-api .
+
+docker run --rm `
+  -p 8080:8080 `
+  -p 9090:9090 `
+  -v "$PWD/example_configs/general.yaml:/app/config.yaml" `
+  -v "$HOME/.cache/huggingface:/app/huggingface" `
+  gliner-api
+```
+
+</details>
+
+#### Build and run locally (GPU version)
+
+```bash
+docker build \
+  -f gpu.Dockerfile \
+  --build-arg IMAGE_CREATED="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --build-arg IMAGE_REVISION="$(git rev-parse HEAD)" \
+  --build-arg IMAGE_VERSION="$(git describe --tags --always)" \
+  -t gliner-api-gpu .
+
+docker run --rm \
+  --gpus all \
+  -p 8080:8080 \
+  -p 9090:9090 \
+  -v $(pwd)/example_configs/general.yaml:/app/config.yaml \
+  -v $HOME/.cache/huggingface:/app/huggingface \
+  gliner-api-gpu
+```
+
+<details>
+<summary>PowerShell version</summary>
+
+```powershell
+docker build `
+  -f gpu.Dockerfile `
+  --build-arg IMAGE_CREATED="$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ssZ')" `
+  --build-arg IMAGE_REVISION="$(git rev-parse HEAD)" `
+  --build-arg IMAGE_VERSION="$(git describe --tags --always)" `
+  -t gliner-api-gpu .
+
+docker run --rm `
+  --gpus all `
+  -p 8080:8080 `
+  -p 9090:9090 `
+  -v "$PWD/example_configs/general.yaml:/app/config.yaml" `
+  -v "$HOME/.cache/huggingface:/app/huggingface" `
+  gliner-api-gpu
+```
+
+</details>
 
 ---
 
 ### Run with Docker Compose
 
-Edit [`compose.yaml`](compose.yaml) to select the config you want (see `example_configs/`).
+Edit [`cpu.compose.yaml`](cpu.compose.yaml) / [`gpu.compose.yaml`](gpu.compose.yaml) to select the config you want (see [`example_configs`](example_configs/)).
 
-Then start:
+Then run:
 
 ```bash
-docker compose up --build
+# For CPU version
+docker compose -f cpu.compose.yaml up
+
+# For GPU version
+docker compose -f gpu.compose.yaml up
 ```
 
 ---

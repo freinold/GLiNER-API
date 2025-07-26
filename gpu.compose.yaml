@@ -1,0 +1,27 @@
+name: gliner-api-gpu
+services:
+  gliner-api:
+    image: ghcr.io/freinold/gliner-api-gpu:latest
+    ## Alternatively, you can build the image locally: choose either the CPU or GPU Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: cpu.Dockerfile
+    #   dockerfile: gpu.Dockerfile
+    ports:
+    - "8080:8080" # API and Gradio frontend
+    - "9090:9090" # Prometheus metrics
+    stdin_open: true
+    tty: true
+    volumes:
+    - "${HOME}/.cache/huggingface:/app/huggingface"
+    - "./example_configs/pii+phi_quantized.yaml:/app/config.yaml:ro"
+    environment: []
+    # If you want to secure your deployment, set your API key here
+    # - GLINER_API_API_KEY=CHANGEME
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [ gpu ]
