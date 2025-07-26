@@ -88,10 +88,31 @@ docker build \
 docker run --rm \
   -p 8080:8080 \
   -p 9090:9090 \
-  -v $(pwd)/config.yaml:/app/config.yaml \
+  -v $(pwd)/example_configs/general.yaml:/app/config.yaml \
   -v $HOME/.cache/huggingface:/app/huggingface \
   gliner-api
 ```
+
+<details>
+<summary>PowerShell version</summary>
+
+```powershell
+docker build `
+  -f cpu.Dockerfile `
+  --build-arg IMAGE_CREATED="$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ssZ')" `
+  --build-arg IMAGE_REVISION="$(git rev-parse HEAD)" `
+  --build-arg IMAGE_VERSION="$(git describe --tags --always)" `
+  -t gliner-api .
+
+docker run --rm `
+  -p 8080:8080 `
+  -p 9090:9090 `
+  -v "$PWD/example_configs/general.yaml:/app/config.yaml" `
+  -v "$HOME/.cache/huggingface:/app/huggingface" `
+  gliner-api
+```
+
+</details>
 
 #### Build and run locally (GPU version)
 
@@ -107,21 +128,47 @@ docker run --rm \
   --gpus all \
   -p 8080:8080 \
   -p 9090:9090 \
-  -v $(pwd)/config.yaml:/app/config.yaml \
+  -v $(pwd)/example_configs/general.yaml:/app/config.yaml \
   -v $HOME/.cache/huggingface:/app/huggingface \
   gliner-api-gpu
 ```
+
+<details>
+<summary>PowerShell version</summary>
+
+```powershell
+docker build `
+  -f gpu.Dockerfile `
+  --build-arg IMAGE_CREATED="$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ssZ')" `
+  --build-arg IMAGE_REVISION="$(git rev-parse HEAD)" `
+  --build-arg IMAGE_VERSION="$(git describe --tags --always)" `
+  -t gliner-api-gpu .
+
+docker run --rm `
+  --gpus all `
+  -p 8080:8080 `
+  -p 9090:9090 `
+  -v "$PWD/example_configs/general.yaml:/app/config.yaml" `
+  -v "$HOME/.cache/huggingface:/app/huggingface" `
+  gliner-api-gpu
+```
+
+</details>
 
 ---
 
 ### Run with Docker Compose
 
-Edit [`compose.yaml`](compose.yaml) to select the config you want (see `example_configs/`).
+Edit [`cpu.compose.yaml`](cpu.compose.yaml) / [`gpu.compose.yaml`](gpu.compose.yaml) to select the config you want (see [`example_configs`](example_configs/)).
 
-Then start:
+Then run:
 
 ```bash
-docker compose up --build
+# For CPU version
+docker compose -f cpu.compose.yaml up
+
+# For GPU version
+docker compose -f gpu.compose.yaml up
 ```
 
 ---
