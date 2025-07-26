@@ -20,12 +20,17 @@ ENV UV_COMPILE_BYTECODE=1
 # Copy from the cache instead of linking since it's a mounted volume
 ENV UV_LINK_MODE=copy
 
-# Copy the application files into the container
-COPY . /app
-
-# Install the dependencies
+# Install the transitive dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --no-dev --extra cpu --extra frontend
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --no-dev --extra cpu --extra frontend --locked --no-install-project
+
+ADD . /app
+
+# Install the project
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --no-dev --extra cpu --extra frontend --locked
 
 # Use slim image as runner
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim@sha256:74b8fe8ec5931f3930cfb6c87b46aeb1dbd497a609f6abf860fd0f4390f8b040 AS runner
@@ -49,9 +54,9 @@ LABEL org.opencontainers.image.authors='Fabian Reinold <contact@freinold.eu>' \
 # Install the project into `/app`
 WORKDIR /app
 
-# Create a non-root user and group with UID/GID 1000
-RUN groupadd -g 1000 appuser && \
-    useradd -m -u 1000 -g appuser appuser
+# Create a non-root user and group with UID/GID 1001
+RUN groupadd -g 1001 appuser && \
+    useradd -m -u 1001 -g appuser appuser
 
 # Set cache directory for Huggingface Models and set ownership to appuser
 RUN mkdir -p /app/huggingface && chown -R appuser:appuser /app/huggingface
