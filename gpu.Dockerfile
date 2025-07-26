@@ -39,7 +39,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --no-dev --extra gpu --extra frontend --locked --no-install-project
 
-ADD . /app
+COPY . /app
 
 # Install the project
 RUN --mount=type=cache,target=/root/.cache/uv \
