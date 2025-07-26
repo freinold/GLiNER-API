@@ -13,18 +13,6 @@
     ":automergeMinor", // automerge minor & patch updates
   ],
   labels: ["renovate", "lifecycle"],
-  packageRules: [
-    {
-      matchDatasources: ["python-version"],
-      allowedVersions: ">=3.12,<3.13",
-      versioning: "python",
-    },
-    {
-      matchManagers: ["pyenv"],
-      allowedVersions: ">=3.12,<3.13",
-      versioning: "python",
-    },
-  ],
   lockFileMaintenance: {
     enabled: true,
   },
