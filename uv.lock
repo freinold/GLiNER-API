@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = "==3.12.11"
 resolution-markers = [
     "extra != 'extra-10-gliner-api-cpu' and extra == 'extra-10-gliner-api-gpu'",
@@ -648,7 +648,7 @@ requires-dist = [
     { name = "gliner", extras = ["tokenizers"], marker = "extra == 'cpu'", specifier = "==0.2.21" },
     { name = "gradio", marker = "extra == 'frontend'", specifier = "==5.38.2" },
     { name = "httpx", marker = "extra == 'frontend'", specifier = "==0.28.1" },
-    { name = "huggingface-hub", specifier = "==0.34.1" },
+    { name = "huggingface-hub", specifier = "==0.34.3" },
     { name = "onnxruntime", marker = "extra == 'cpu'", specifier = "==1.22.1" },
     { name = "onnxruntime-gpu", marker = "extra == 'gpu'", specifier = "==1.22.0" },
     { name = "prometheus-client", specifier = "==0.22.1" },
@@ -803,7 +803,7 @@ wheels = [
 
 [[package]]
 name = "huggingface-hub"
-version = "0.34.1"
+version = "0.34.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "filelock" },
@@ -815,9 +815,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/22/cd/841bc8e0550d69f632a15cdd70004e95ba92cd0fbe13087d6669e2bb5f44/huggingface_hub-0.34.1.tar.gz", hash = "sha256:6978ed89ef981de3c78b75bab100a214843be1cc9d24f8e9c0dc4971808ef1b1", size = 456783, upload-time = "2025-07-25T14:54:54.758Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/91/b4/e6b465eca5386b52cf23cb6df8644ad318a6b0e12b4b96a7e0be09cbfbcc/huggingface_hub-0.34.3.tar.gz", hash = "sha256:d58130fd5aa7408480681475491c0abd7e835442082fbc3ef4d45b6c39f83853", size = 456800, upload-time = "2025-07-29T08:38:53.885Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8c/cf/dd53c0132f50f258b06dd37a4616817b1f1f6a6b38382c06effd04bb6881/huggingface_hub-0.34.1-py3-none-any.whl", hash = "sha256:60d843dcb7bc335145b20e7d2f1dfe93910f6787b2b38a936fb772ce2a83757c", size = 558788, upload-time = "2025-07-25T14:54:52.957Z" },
+    { url = "https://files.pythonhosted.org/packages/59/a8/4677014e771ed1591a87b63a2392ce6923baf807193deef302dcfde17542/huggingface_hub-0.34.3-py3-none-any.whl", hash = "sha256:5444550099e2d86e68b2898b09e85878fbd788fc2957b506c6a79ce060e39492", size = 558847, upload-time = "2025-07-29T08:38:51.904Z" },
 ]
 
 [[package]]
