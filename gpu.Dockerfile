@@ -1,5 +1,5 @@
 # Use a NVIDIA CUDA development image as builder
-FROM nvidia/cuda:12.9.1-cudnn-devel-ubuntu24.04@sha256:a2e1e2360c85298ac47ec2543b406ab1e8cec42e31ee47e4d32140ebc82e1067 AS builder
+FROM nvidia/cuda:13.0.0-cudnn-devel-ubuntu24.04@sha256:c2621d98e7de80c2aec5eb8403b19c67454c8f5b0c929e8588fd3563c9b6558d AS builder
 
 # Install build tools needed for some packages
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
