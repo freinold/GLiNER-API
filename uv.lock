@@ -1,6 +1,6 @@
 version = 1
 revision = 3
-requires-python = "==3.13.5"
+requires-python = "==3.13.6"
 resolution-markers = [
     "extra != 'extra-10-gliner-api-cpu' and extra == 'extra-10-gliner-api-gpu'",
     "sys_platform != 'darwin' and extra == 'extra-10-gliner-api-cpu' and extra != 'extra-10-gliner-api-gpu'",
