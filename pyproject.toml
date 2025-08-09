@@ -7,7 +7,7 @@ requires-python = "==3.13.5"
 dependencies = [
     "fastapi[standard]==0.116.1",
     "gitpython==3.1.45",
-    "huggingface-hub==0.34.3",
+    "huggingface-hub==0.34.4",
     "prometheus-client==0.22.1",
     "pydantic-settings==2.10.1",
     "uvicorn[standard]==0.35.0",
