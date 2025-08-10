@@ -10,7 +10,7 @@
     ":separateMultipleMajorReleases", // separate major updates of dependencies into separate PRs
     ":timezone(Europe/Berlin)", // sets correct timezone for schedule based operations
     "security:openssf-scorecard", // show OpenSSF badge on pull requests to evaluate security health metrics for dependencies
-    ":automergeMinor", // automerge minor & patch updates
+    ":automergePatch", // automerge minor & patch updates
   ],
   labels: ["renovate", "lifecycle"],
   lockFileMaintenance: {
