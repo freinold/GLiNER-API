@@ -10,11 +10,28 @@
     ":separateMultipleMajorReleases", // separate major updates of dependencies into separate PRs
     ":timezone(Europe/Berlin)", // sets correct timezone for schedule based operations
     "security:openssf-scorecard", // show OpenSSF badge on pull requests to evaluate security health metrics for dependencies
-    ":automergePatch", // automerge minor & patch updates
   ],
   labels: ["renovate", "lifecycle"],
   lockFileMaintenance: {
     enabled: true,
   },
   reviewers: ["freinold"],
+  packageRules: [
+    {
+      matchManagers: ["pep621"],
+      matchUpdateTypes: ["minor", "patch"],
+      groupName: "Python: non-major updates",
+      groupSlug: "python-non-major",
+    },
+    {
+      matchManagers: ["dockerfile"],
+      groupName: "Dockerfile base images",
+      groupSlug: "dockerfile-base-images",
+    },
+    {
+      matchManagers: ["github-actions"],
+      groupName: "GitHub Actions dependencies",
+      groupSlug: "github-actions",
+    },
+  ],
 }
