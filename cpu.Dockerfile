@@ -1,5 +1,5 @@
 # Use a full image with uv pre-installed as builder
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm@sha256:539f0cf3f8590922d18c0c4835698838843ec901064636e37bc60bc242b0b58b AS builder
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm@sha256:fe0830f593bf8f7d74f491e5bde77012dec5221023a13059378c96bb2ead101b AS builder
 
 # Install build tools needed for some packages
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
