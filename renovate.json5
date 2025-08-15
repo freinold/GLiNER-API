@@ -17,4 +17,12 @@
     enabled: true,
   },
   reviewers: ["freinold"],
+  packageRules: [
+    {
+      matchManagers: ["pep621"],
+      matchUpdateTypes: ["minor", "patch"],
+      groupName: "Python: non-major updates",
+      groupSlug: "python-non-major"
+    }
+  ]
 }
