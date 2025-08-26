@@ -1,38 +1,54 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  description: "Renovate config for freinold/gliner-api",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  description: 'Renovate config for freinold/gliner-api',
   extends: [
-    "config:best-practices", // best practices
-    "customManagers:githubActionsVersions", // manages _VERSION variables in GitHub Action workflows
-    "helpers:pinGitHubActionDigestsToSemver", // pin to digest with semver as comment
-    ":pinAllExceptPeerDependencies", // pin all dependencies except peer dependencies
-    "schedule:weekly", // only weekly updates
-    ":separateMultipleMajorReleases", // separate major updates of dependencies into separate PRs
-    ":timezone(Europe/Berlin)", // sets correct timezone for schedule based operations
-    "security:openssf-scorecard", // show OpenSSF badge on pull requests to evaluate security health metrics for dependencies
+    'config:best-practices',
+    'customManagers:githubActionsVersions',
+    'helpers:pinGitHubActionDigestsToSemver',
+    ':pinAllExceptPeerDependencies',
+    'schedule:weekly',
+    ':separateMultipleMajorReleases',
+    ':timezone(Europe/Berlin)',
+    'security:openssf-scorecard',
   ],
-  labels: ["renovate", "lifecycle"],
+  labels: [
+    'renovate',
+    'lifecycle',
+  ],
   lockFileMaintenance: {
     enabled: true,
   },
-  reviewers: ["freinold"],
+  reviewers: [
+    'freinold',
+  ],
   packageRules: [
     {
-      matchManagers: ["pep621"],
-      matchUpdateTypes: ["minor", "patch"],
-      excludeDepNames: ["python"],
-      groupName: "Python: non-major updates",
-      groupSlug: "python-non-major",
+      matchManagers: [
+        'pep621',
+      ],
+      matchUpdateTypes: [
+        'minor',
+        'patch',
+      ],
+      groupName: 'Python: non-major updates',
+      groupSlug: 'python-non-major',
+      matchDepNames: [
+        '!python',
+      ],
     },
     {
-      matchManagers: ["dockerfile"],
-      groupName: "Dockerfile base images",
-      groupSlug: "dockerfile-base-images",
+      matchManagers: [
+        'dockerfile',
+      ],
+      groupName: 'Dockerfile base images',
+      groupSlug: 'dockerfile-base-images',
     },
     {
-      matchManagers: ["github-actions"],
-      groupName: "GitHub Actions dependencies",
-      groupSlug: "github-actions",
+      matchManagers: [
+        'github-actions',
+      ],
+      groupName: 'GitHub Actions dependencies',
+      groupSlug: 'github-actions',
     },
   ],
 }
