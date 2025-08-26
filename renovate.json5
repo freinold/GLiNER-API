@@ -20,6 +20,7 @@
     {
       matchManagers: ["pep621"],
       matchUpdateTypes: ["minor", "patch"],
+      excludeDepNames: ["python"],
       groupName: "Python: non-major updates",
       groupSlug: "python-non-major",
     },
