@@ -453,7 +453,7 @@ requires-dist = [
     { name = "gitpython", specifier = "==3.1.45" },
     { name = "gliner", extras = ["stanza"], marker = "extra == 'cpu'", specifier = "==0.2.22" },
     { name = "gliner", extras = ["stanza"], marker = "extra == 'gpu'", specifier = "==0.2.22" },
-    { name = "gradio", marker = "extra == 'frontend'", specifier = "==5.43.1" },
+    { name = "gradio", marker = "extra == 'frontend'", specifier = "==5.44.0" },
     { name = "httpx", marker = "extra == 'frontend'", specifier = "==0.28.1" },
     { name = "huggingface-hub", specifier = "==0.34.4" },
     { name = "onnxruntime", marker = "extra == 'cpu'", specifier = "==1.22.1" },
@@ -477,7 +477,7 @@ dev = [
 
 [[package]]
 name = "gradio"
-version = "5.43.1"
+version = "5.44.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiofiles" },
@@ -510,9 +510,9 @@ dependencies = [
     { name = "urllib3", marker = "sys_platform == 'emscripten' or (extra == 'extra-10-gliner-api-cpu' and extra == 'extra-10-gliner-api-gpu')" },
     { name = "uvicorn", marker = "sys_platform != 'emscripten' or (extra == 'extra-10-gliner-api-cpu' and extra == 'extra-10-gliner-api-gpu')" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c4/75/608023e2adce004953f3428119e7028f5c59682e5c03dcf6a99b33ab4b40/gradio-5.43.1.tar.gz", hash = "sha256:30ef248f5121b9d80093014eac70d0e26ded70e55a9c1cec089cc4f87f251c08", size = 71452332, upload-time = "2025-08-19T20:25:35.876Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/61/fc/fa10fb9927d24371cfe4424cfa59614c87a93d5b140d08fb3b6523dfd85f/gradio-5.44.0.tar.gz", hash = "sha256:ee2b7668b916ec0fd44bc12551756fd72e67fe24341f4bca9648ed1118d3e1b6", size = 72108328, upload-time = "2025-08-26T17:46:34.181Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/93/32/2b35e003c795770445c20b05ea3023c4932032d65a7e55193bdd084df083/gradio-5.43.1-py3-none-any.whl", hash = "sha256:206a8a0dc7127660f1ec9195db366d527b82ed2e079a42bec2994b9bf555f1d1", size = 59590925, upload-time = "2025-08-19T20:25:31.226Z" },
+    { url = "https://files.pythonhosted.org/packages/30/da/04bea68615fafeff183a6e8850da8ae2b43b87c740f9515004890c40b866/gradio-5.44.0-py3-none-any.whl", hash = "sha256:2ae01c251026abf168181f5ded6c1a801725bedddce8e08ca6f627bdee6a1116", size = 60146952, upload-time = "2025-08-26T17:46:28.187Z" },
 ]
 
 [[package]]
