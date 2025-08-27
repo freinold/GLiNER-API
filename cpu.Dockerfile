@@ -1,15 +1,16 @@
 # Use a full image with uv pre-installed as builder
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm@sha256:6160bec1730d7abeceb5f795a18c0f1a4b9d97addfb8071f151cdf8b3be631f7 AS builder
 
-# Install build tools needed for some packages
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    cmake \
-    libboost-all-dev \
-    libeigen3-dev \
-    && rm -rf /var/lib/apt/lists/*
+## Currently skipped as we don't ship with the dependencies on old tokenizers
+# # Install build tools needed for some packages
+# RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+#     --mount=type=cache,target=/var/lib/apt,sharing=locked \
+#     apt-get update && apt-get install -y --no-install-recommends \
+#     build-essential \
+#     cmake \
+#     libboost-all-dev \
+#     libeigen3-dev \
+#     && rm -rf /var/lib/apt/lists/*
 
 # Install the project into `/app`
 WORKDIR /app
