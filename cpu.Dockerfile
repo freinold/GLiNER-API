@@ -1,5 +1,5 @@
 # Use a full image with uv pre-installed as builder
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm@sha256:6160bec1730d7abeceb5f795a18c0f1a4b9d97addfb8071f151cdf8b3be631f7 AS builder
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm@sha256:ef50f0f84cd30d17f5f34cd7b1f8f07ccf01507b384b61cee61476c3a2dd8280 AS builder
 
 ## Currently skipped as we don't ship with the dependencies on old tokenizers
 # # Install build tools needed for some packages
@@ -34,7 +34,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --no-dev --extra cpu --extra frontend --locked
 
 # Use slim image as runner
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim@sha256:727eea7895e8bda0c5f582a5fa2795bdeecabbcb2e9371de066b95da06c31ad5 AS runner
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim@sha256:0664f9b563fb559314ae82b9d87cd34d503f98a96d8cd9b37fd9d9cfe76d5ede AS runner
 
 # Metadata for the image
 ARG IMAGE_CREATED="unknown"
