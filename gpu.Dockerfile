@@ -94,4 +94,4 @@ USER appuser
 # Reset the entrypoint, don't invoke `uv`
 ENTRYPOINT ["python", "main.py"]
 
-CMD ["--host", "0.0.0.0", "--port", "8080"]
+CMD ["--host", "", "--port", "8080"]

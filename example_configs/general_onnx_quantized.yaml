@@ -11,5 +11,5 @@ default_entities:
 - location
 - date
 api_key: null
-host: "0.0.0.0"
+host: ""
 port: 8080
