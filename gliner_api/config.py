@@ -38,7 +38,7 @@ class Config(BaseSettings):
         description="API key for authentication; if provided, each request needs to include it.",
     )
     host: str = Field(
-        default="0.0.0.0",
+        default="",
         description="The host address for serving the API.",
     )
     port: int = Field(

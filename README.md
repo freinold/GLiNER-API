@@ -205,7 +205,7 @@ uv run main.py --help
 | `--default-entities`    | Default entities to detect                                | `['person', 'organization', 'location', 'date']` |
 | `--default-threshold`   | Default detection threshold                               | `0.5`                                            |
 | `--api-key`             | API key for authentication (if set, required in requests) | `null`                                           |
-| `--host`                | Host address                                              | `0.0.0.0`                                        |
+| `--host`                | Host address                                              | `""` (bind to all interfaces)                  |
 | `--port`                | Port                                                      | `8080`                                           |
 | `--metrics-enabled`     | Enable Prometheus metrics endpoint                        | `True`                                           |
 | `--metrics-port`        | Port for Prometheus metrics endpoint                      | `9090`                                           |

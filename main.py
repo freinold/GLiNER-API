@@ -16,8 +16,9 @@ def main() -> None:
     if config.metrics_enabled:
         if config.metrics_port == config.port:
             raise ValueError("Metrics port cannot be the same as API port. Please set a different port for metrics.")
-        metrics_server, metrics_thread = start_http_server(addr=config.host, port=config.metrics_port)
-        logger.info(f"Prometheus metrics server started at http://{config.host}:{config.metrics_port}")
+        prometheus_host = config.host if config.host != "" else "0.0.0.0"
+        metrics_server, metrics_thread = start_http_server(addr=prometheus_host, port=config.metrics_port)
+        logger.info(f"Prometheus metrics server started at http://{prometheus_host}:{config.metrics_port}")
 
         @app.on_event("shutdown")
         async def close_metrics_server():
