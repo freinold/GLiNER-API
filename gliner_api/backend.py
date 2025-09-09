@@ -47,7 +47,7 @@ async def lifespan(_: FastAPI):
     try:
         gliner = GLiNER.from_pretrained(
             config.model_id,
-            load_onnx_model=config.onnx_enabled,
+            load_onnx_model=config.backend,
             load_tokenizer=True,
             onnx_model_file=config.onnx_model_path,
         )
@@ -224,5 +224,5 @@ async def info() -> InfoResponse:
         default_entities=config.default_entities,
         default_threshold=config.default_threshold,
         configured_use_case=config.use_case,
-        onnx_enabled=config.onnx_enabled,
+        onnx_enabled=config.backend,
     )

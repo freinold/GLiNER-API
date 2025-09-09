@@ -1,4 +1,5 @@
 from functools import lru_cache
+from typing import Literal
 
 from huggingface_hub import HfApi, ModelInfo
 from pydantic import AliasChoices, Field, field_validator
@@ -15,9 +16,9 @@ class Config(BaseSettings):
         default="knowledgator/gliner-x-base",
         description="The Huggingface model ID for a GLiNER model. Browse available models at https://huggingface.co/models?library=gliner&sort=trending",
     )
-    onnx_enabled: bool = Field(
-        default=False,
-        description="Whether to use ONNX for inference. If enabled, the model will be loaded in ONNX format for potentially faster inference.",
+    backend: Literal["pytorch", "onnx", "rust"] = Field(
+        default="pytorch",
+        description="The backend framework to use for inference. Options are 'pytorch' for PyTorch, 'onnx' for python based ONNX Runtime, and 'rust' for Rust based ONNX Runtime via the gliner-rs package.",
     )
     onnx_model_path: str = Field(
         default="model.onnx",

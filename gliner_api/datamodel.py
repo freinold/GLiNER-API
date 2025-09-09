@@ -116,7 +116,7 @@ class InfoResponse(BaseModel):
         description="The configured use case for this deployment",
     )
     onnx_enabled: bool = Field(
-        default_factory=lambda: get_config().onnx_enabled,
+        default_factory=lambda: get_config().backend,
         description="Whether the GLiNER model is loaded as an ONNX model",
     )
 
