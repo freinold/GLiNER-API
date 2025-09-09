@@ -7,7 +7,7 @@ repos:
   rev: v0.12.12
   hooks:
   # Run the linter.
-  - id: ruff
+  - id: ruff-check
     types_or: [ python, pyi, jupyter ]
     args: [ --fix ]
   - id: ruff-format
