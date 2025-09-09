@@ -444,7 +444,7 @@ stanza = [
 
 [[package]]
 name = "gliner-api"
-version = "0.3.3"
+version = "0.3.4"
 source = { virtual = "." }
 dependencies = [
     { name = "fastapi", extra = ["standard"] },
