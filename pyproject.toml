@@ -3,7 +3,7 @@ name = "gliner-api"
 version = "0.1.0"
 description = "Easily configurable API & frontend providing simple access to dynamic NER models"
 readme = "README.md"
-requires-python = "==3.12.11"
+requires-python = "==3.13.7"
 dependencies = [
     "fastapi[standard]==0.116.1",
     "gitpython==3.1.45",
@@ -17,7 +17,7 @@ dependencies = [
 cpu = [
     "torch==2.8.0",
     "gliner[stanza]==0.2.22",
-    "onnxruntime==1.22.1"
+    "onnxruntime==1.22.1",
 ]
 gpu = [
     "torch==2.8.0",
@@ -27,11 +27,16 @@ gpu = [
 frontend = [
     "gradio==5.44.1",
     "httpx==0.28.1",
-    "stamina==25.1.0"
+    "stamina==25.1.0",
 ]
 
 [tool.uv]
-conflicts = [[{ extra = "cpu" }, { extra = "gpu" }]]
+conflicts = [
+    [
+        { extra = "cpu" },
+        { extra = "gpu" },
+    ],
+]
 
 [tool.uv.sources]
 torch = [
@@ -40,14 +45,19 @@ torch = [
 ]
 
 [[tool.uv.index]]
-name = "pytorch-cu128"
-url = "https://download.pytorch.org/whl/cu128"
+name     = "pytorch-cu128"
+url      = "https://download.pytorch.org/whl/cu128"
 explicit = true
 
 [[tool.uv.index]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
+name     = "pytorch-cpu"
+url      = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [dependency-groups]
-dev = ["ipykernel==6.30.1", "pre-commit==4.3.0", "ruff==0.12.12", "ty==0.0.1a20"]
+dev = [
+    "ipykernel==6.30.1",
+    "pre-commit==4.3.0",
+    "ruff==0.12.12",
+    "ty==0.0.1a20",
+]
