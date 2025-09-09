@@ -8,6 +8,7 @@ from stamina import retry_context
 
 from gliner_api.config import Config, get_config
 from gliner_api.examples import Examples, get_examples
+from gliner_api.version import get_version
 
 config: Config = get_config()
 examples: Examples = get_examples()
@@ -84,10 +85,11 @@ description: str = f"""
 </div>
 """
 
-article: str = """
+article: str = f"""
 <div style='text-align: center;'>
-    See the <a href='/docs'>API documentation</a> for more details on how to use the GLiNER API from your programs or scripts.<br>
-    <b>This project is licensed under MIT-License and can be found on <a href='https://github.com/freinold/GLiNER-API'>GitHub</a>.</b>
+    See the <a href='/docs'>API documentation</a> for more details on how to use the GLiNER API from your programs or scripts.<br/>
+    <b>This project is licensed under MIT-License and can be found on <a href='https://github.com/freinold/GLiNER-API'>GitHub</a>.</b><br/>
+    Version: {get_version()}
 </div>
 """
 

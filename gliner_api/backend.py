@@ -8,7 +8,7 @@ from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from gliner import GLiNER
-from onnxruntime import get_device  # ty: ignore[possibly-unbound-import]
+from onnxruntime import get_device  # type: ignore
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_403_FORBIDDEN
 
 from gliner_api import Entity
@@ -26,6 +26,7 @@ from gliner_api.datamodel import (
 )
 from gliner_api.logging import getLogger
 from gliner_api.metrics import app_state_metric, failed_auth_metric, failed_inference_metric, inference_time_metric, requests_metric
+from gliner_api.version import get_version
 
 gliner: GLiNER | None = None
 
@@ -67,7 +68,7 @@ async def lifespan(_: FastAPI):
 app: FastAPI = FastAPI(
     title="GLiNER API - Backend",
     description="API for GLiNER entity detection",
-    version="0.1.0",
+    version=get_version(),
     lifespan=lifespan,
 )
 
