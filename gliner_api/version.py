@@ -14,7 +14,7 @@ def get_version() -> str:
         return version
     else:
         logger.warning("No version found")
-        return "0.1.0"
+        return "unknown"
 
 
 def _get_git_version() -> str | None:
