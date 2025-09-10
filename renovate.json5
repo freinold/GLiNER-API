@@ -1,54 +1,38 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  description: 'Renovate config for freinold/gliner-api',
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  description: "Renovate config for freinold/gliner-api",
   extends: [
-    'config:best-practices',
-    'customManagers:githubActionsVersions',
-    'helpers:pinGitHubActionDigestsToSemver',
-    ':pinAllExceptPeerDependencies',
-    'schedule:weekly',
-    ':separateMultipleMajorReleases',
-    ':timezone(Europe/Berlin)',
-    'security:openssf-scorecard',
+    "config:best-practices",
+    "customManagers:githubActionsVersions",
+    "helpers:pinGitHubActionDigestsToSemver",
+    ":pinAllExceptPeerDependencies",
+    "schedule:weekly",
+    ":separateMultipleMajorReleases",
+    ":timezone(Europe/Berlin)",
+    "security:openssf-scorecard",
   ],
-  labels: [
-    'renovate',
-    'lifecycle',
-  ],
+  labels: ["renovate", "lifecycle"],
   lockFileMaintenance: {
     enabled: true,
   },
-  reviewers: [
-    'freinold',
-  ],
+  reviewers: ["freinold"],
   packageRules: [
     {
-      matchManagers: [
-        'pep621',
-      ],
-      matchUpdateTypes: [
-        'minor',
-        'patch',
-      ],
-      groupName: 'Python: non-major updates',
-      groupSlug: 'python-non-major',
-      matchDepNames: [
-        '!python',
-      ],
+      matchManagers: ["pep621"],
+      matchUpdateTypes: ["minor", "patch"],
+      groupName: "Python: non-major updates",
+      groupSlug: "python-non-major",
+      matchDepNames: ["!python"],
     },
     {
-      matchManagers: [
-        'dockerfile',
-      ],
-      groupName: 'Dockerfile base images',
-      groupSlug: 'dockerfile-base-images',
+      matchManagers: ["dockerfile"],
+      groupName: "Dockerfile base images",
+      groupSlug: "dockerfile-base-images",
     },
     {
-      matchManagers: [
-        'github-actions',
-      ],
-      groupName: 'GitHub Actions dependencies',
-      groupSlug: 'github-actions',
+      matchManagers: ["github-actions"],
+      groupName: "GitHub Actions dependencies",
+      groupSlug: "github-actions",
     },
   ],
 }
