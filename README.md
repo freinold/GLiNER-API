@@ -5,7 +5,7 @@
 ## Easily configurable API & frontend providing simple access to dynamic NER models
 
 [![Hugging Face Space](https://img.shields.io/badge/HuggingFace-Space-ffe720?logo=huggingface)](https://huggingface.co/spaces/bigscience/bloom-demo)
-[![Python 3.12.11](https://img.shields.io/badge/Python-3.12.11-3776ab?logo=python)](.python-version)
+[![Python 3.13.7](https://img.shields.io/badge/Python-3.13.7-3776ab?logo=python)](.python-version)
 [![GLiNER](https://img.shields.io/badge/GLiNER-0.2.21-e32e29)](https://github.com/urchade/GLiNER)
 [![License](https://img.shields.io/github/license/freinold/gliner-api)](https://github.com/freinold/gliner-api/blob/main/LICENSE)
 [![CodeQL](https://github.com/freinold/gliner-api/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/freinold/gliner-api/actions/workflows/github-code-scanning/codeql)
@@ -205,7 +205,7 @@ uv run main.py --help
 | `--default-entities`    | Default entities to detect                                | `['person', 'organization', 'location', 'date']` |
 | `--default-threshold`   | Default detection threshold                               | `0.5`                                            |
 | `--api-key`             | API key for authentication (if set, required in requests) | `null`                                           |
-| `--host`                | Host address                                              | `""` (bind to all interfaces)                  |
+| `--host`                | Host address                                              | `""` (bind to all interfaces)                    |
 | `--port`                | Port                                                      | `8080`                                           |
 | `--metrics-enabled`     | Enable Prometheus metrics endpoint                        | `True`                                           |
 | `--metrics-port`        | Port for Prometheus metrics endpoint                      | `9090`                                           |
@@ -238,7 +238,7 @@ curl -X POST "http://localhost:8080/api/invoke" -H "Content-Type: application/js
 
 **Prerequisites:**
 
-- Python 3.12.11
+- Python 3.13.7
 - [uv](https://github.com/astral-sh/uv) (for dependency management)
 
 **Install dependencies:**
