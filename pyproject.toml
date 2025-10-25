@@ -5,27 +5,27 @@ description = "Easily configurable API & frontend providing simple access to dyn
 readme = "README.md"
 requires-python = "==3.13.7"
 dependencies = [
-    "fastapi[standard]==0.118.2",
+    "fastapi[standard]==0.120.0",
     "gitpython==3.1.45",
-    "huggingface-hub==0.35.3",
+    "huggingface-hub==0.36.0",
     "prometheus-client==0.23.1",
     "pydantic-settings==2.11.0",
-    "uvicorn[standard]==0.37.0",
+    "uvicorn[standard]==0.38.0",
 ]
 
 [project.optional-dependencies]
 cpu = [
-    "torch==2.8.0",
+    "torch==2.9.0",
     "gliner[stanza]==0.2.22",
-    "onnxruntime==1.23.1",
+    "onnxruntime==1.23.2",
 ]
 gpu = [
-    "torch==2.8.0",
+    "torch==2.9.0",
     "gliner[stanza]==0.2.22",
-    "onnxruntime-gpu==1.23.0",
+    "onnxruntime-gpu==1.23.2",
 ]
 frontend = [
-    "gradio==5.49.0",
+    "gradio==5.49.1",
     "httpx==0.28.1",
     "stamina==25.1.0",
 ]
@@ -58,6 +58,6 @@ explicit = true
 dev = [
     "ipykernel==7.0.1",
     "pre-commit==4.3.0",
-    "ruff==0.14.0",
-    "ty==0.0.1a21",
+    "ruff==0.14.2",
+    "ty==0.0.1a24",
 ]
