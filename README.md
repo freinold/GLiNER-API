@@ -5,7 +5,7 @@
 ## Easily configurable API & frontend providing simple access to dynamic NER models
 
 [![Hugging Face Space](https://img.shields.io/badge/HuggingFace-Space-ffe720?logo=huggingface)](https://huggingface.co/spaces/bigscience/bloom-demo)
-[![Python 3.13.7](https://img.shields.io/badge/Python-3.13.7-3776ab?logo=python)](.python-version)
+[![Python 3.13.9](https://img.shields.io/badge/Python-3.13.9-3776ab?logo=python)](.python-version)
 [![GLiNER](https://img.shields.io/badge/GLiNER-0.2.21-e32e29)](https://github.com/urchade/GLiNER)
 [![License](https://img.shields.io/github/license/freinold/gliner-api)](https://github.com/freinold/gliner-api/blob/main/LICENSE)
 [![CodeQL](https://github.com/freinold/gliner-api/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/freinold/gliner-api/actions/workflows/github-code-scanning/codeql)
@@ -238,7 +238,7 @@ curl -X POST "http://localhost:8080/api/invoke" -H "Content-Type: application/js
 
 **Prerequisites:**
 
-- Python 3.13.7
+- Python 3.13.9
 - [uv](https://github.com/astral-sh/uv) (for dependency management)
 
 **Install dependencies:**
