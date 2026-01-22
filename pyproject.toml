@@ -25,7 +25,7 @@ gpu = [
     "onnxruntime-gpu==1.23.2",
 ]
 frontend = [
-    "gradio==5.50.0",
+    "gradio==6.3.0",
     "httpx==0.28.1",
     "stamina==25.1.0",
 ]
