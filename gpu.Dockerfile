@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 WORKDIR /app
 
 # Copy the uv binary from the uv image
-COPY --from=ghcr.io/astral-sh/uv:latest@sha256:476133fa2aaddb4cbee003e3dc79a88d327a5dc7cb3179b7f02cabd8fdfbcc6e /uv /bin/
+COPY --from=ghcr.io/astral-sh/uv:latest@sha256:edd1fd89f3e5b005814cc8f777610445d7b7e3ed05361f9ddfae67bebfe8456a /uv /bin/
 
 RUN mkdir /app/python && \
     mkdir /app/bin 
