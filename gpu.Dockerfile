@@ -1,5 +1,5 @@
 # Use a NVIDIA CUDA development image as builder
-FROM nvidia/cuda:13.1.1-cudnn-devel-ubuntu24.04@sha256:ef8a68702fdc93f3acb12919cde4468b9df0aeea214c1c97bf57598dad558967 AS builder
+FROM nvidia/cuda:13.2.0-cudnn-devel-ubuntu24.04@sha256:9a8b00be0596b5a2a088249ef1d5ed8e5cdd45bc662a4e6937e57af0cc495d1f AS builder
 
 # Install build tools needed for some packages
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 WORKDIR /app
 
 # Copy the uv binary from the uv image
-COPY --from=ghcr.io/astral-sh/uv:latest@sha256:cbe0a44ba994e327b8fe7ed72beef1aaa7d2c4c795fd406d1dbf328bacb2f1c5 /uv /bin/
+COPY --from=ghcr.io/astral-sh/uv:latest@sha256:90bbb3c16635e9627f49eec6539f956d70746c409209041800a0280b93152823 /uv /bin/
 
 RUN mkdir /app/python && \
     mkdir /app/bin 
@@ -46,7 +46,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --no-dev --extra gpu --extra frontend --locked
 
 # Use a NVIDIA CUDA runtime image as runner
-FROM docker.io/nvidia/cuda:13.1.1-cudnn-runtime-ubuntu24.04@sha256:bcc2ddb358d2a64ee3379b184ea3bc46a0926f1b1ec63df136ba61cd4d85f30d AS runner
+FROM docker.io/nvidia/cuda:13.2.0-cudnn-runtime-ubuntu24.04@sha256:7a31e9bfb2086e4b1ac08aa8e4718d7860730ecc6a9882d2f1e5ed6239f8ef5b AS runner
 
 # Metadata for the image
 ARG IMAGE_CREATED="unknown"
