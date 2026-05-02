@@ -1,12 +1,12 @@
 [project]
 name = "gliner-api"
-version = "0.3.5"
+version = "0.3.6"
 description = "Easily configurable API & frontend providing simple access to dynamic NER models"
 readme = "README.md"
 requires-python = "==3.14.4"
 dependencies = [
     "fastapi[standard]==0.136.1",
-    "gitpython==3.1.47",
+    "gitpython==3.1.49",
     "huggingface-hub==1.13.0",
     "prometheus-client==0.25.0",
     "pydantic-settings==2.14.0",
