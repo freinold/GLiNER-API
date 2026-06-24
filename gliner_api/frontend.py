@@ -163,7 +163,8 @@ interface = gr.Interface(
         ]
         for example in examples.invoke
     ],
-    api_name=False,
+    api_name=None,
+    api_visibility="private",
     flagging_mode="never",
     theme=gr_themes.Base(primary_hue="teal"),
     submit_btn="Detect Entities",

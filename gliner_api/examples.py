@@ -77,7 +77,7 @@ class Examples(BaseSettings):
         ]
     )
 
-    model_config: SettingsConfigDict = SettingsConfigDict(
+    model_config: SettingsConfigDict = SettingsConfigDict( # type: ignore
         yaml_file="examples.yaml",
         yaml_file_encoding="utf-8",
         json_file="examples.json",

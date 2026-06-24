@@ -5,59 +5,28 @@ description = "Easily configurable API & frontend providing simple access to dyn
 readme = "README.md"
 requires-python = "==3.14.5"
 dependencies = [
-    "fastapi[standard]==0.136.3",
+    "fastapi[standard]==0.138.0",
     "gitpython==3.1.50",
-    "huggingface-hub==1.16.4",
+    "huggingface-hub==1.20.1",
     "prometheus-client==0.25.0",
-    "pydantic-settings==2.14.1",
-    "uvicorn[standard]==0.48.0",
-]
-
-[project.optional-dependencies]
-cpu = [
-    "torch==2.12.0",
-    "gliner[stanza]==0.2.26",
-    "onnxruntime==1.26.0",
-]
-gpu = [
-    "torch==2.12.0",
-    "gliner[stanza]==0.2.26",
-    "onnxruntime-gpu==1.26.0",
-]
-frontend = [
-    "gradio==6.15.0",
+    "pydantic-settings==2.14.2",
+    "uvicorn[standard]==0.49.0",
+    "torch==2.12.1",
+    "gliner[stanza]==0.2.27",
+    "onnxruntime==1.27.0",
+    "gradio==6.19.0",
     "httpx==0.28.1",
     "stamina==26.1.0",
 ]
 
-[tool.uv]
-conflicts = [
-    [
-        { extra = "cpu" },
-        { extra = "gpu" },
-    ],
-]
-
 [tool.uv.sources]
-torch = [
-    { index = "pytorch-cpu", extra = "cpu" },
-    { index = "pytorch-cu128", extra = "gpu" },
-]
+torch = [{ index = "pytorch-cpu" }]
+
 
 [[tool.uv.index]]
-name     = "pytorch-cu128"
-url      = "https://download.pytorch.org/whl/cu128"
-explicit = true
-
-[[tool.uv.index]]
-name     = "pytorch-cpu"
-url      = "https://download.pytorch.org/whl/cpu"
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [dependency-groups]
-dev = [
-    "ipykernel==7.2.0",
-    "pre-commit==4.6.0",
-    "ruff==0.15.14",
-    "ty==0.0.39",
-]
+dev = ["ipykernel==7.2.0", "pre-commit==4.6.0", "ruff==0.15.14", "ty==0.0.39"]

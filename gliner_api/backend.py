@@ -8,7 +8,7 @@ from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from gliner import GLiNER
-from onnxruntime import get_device  # type: ignore
+from onnxruntime import get_device
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_403_FORBIDDEN
 
 from gliner_api import Entity
@@ -137,7 +137,7 @@ async def invoke(
 
     try:
         start_time: float = perf_counter()
-        raw_entities: list[dict[str, Any]] = gliner.predict_entities(
+        raw_entities: list[dict[str, Any]] = gliner.predict_entities( # type: ignore
             text=request.text,
             labels=request.entity_types,
             flat_ner=request.flat_ner,
@@ -184,7 +184,7 @@ async def batch(
 
     try:
         start_time: float = perf_counter()
-        raw_entities_list: list[list[dict[str, Any]]] = gliner.batch_predict_entities(
+        raw_entities_list: list[list[dict[str, Any]]] = gliner.batch_predict_entities( # type: ignore
             texts=request.texts,
             labels=request.entity_types,
             flat_ner=request.flat_ner,

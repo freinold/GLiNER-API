@@ -1,35 +1,12 @@
-# Use a NVIDIA CUDA development image as builder
-FROM nvidia/cuda:13.3.0-cudnn-devel-ubuntu24.04@sha256:5c9fb04c50d925fc6a97739ee66f00f95e611fca1c82e6e84d9f560d61f3280e AS builder
-
-# Install build tools needed for some packages
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    cmake \
-    libboost-all-dev \
-    libeigen3-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Use a full image with uv pre-installed as builder
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm@sha256:47965cdc9d53a515f68f78241161c901e70051ce428f12e791bd7fe19f6a631a AS builder
 
 # Install the project into `/app`
 WORKDIR /app
 
-# Copy the uv binary from the uv image
-COPY --from=ghcr.io/astral-sh/uv:latest@sha256:ff07b86af50d4d9391d9daf4ff89ce427bc544f9aae87057e69a1cc0aa369946 /uv /bin/
-
-RUN mkdir /app/python && \
-    mkdir /app/bin 
-
-ENV UV_PYTHON_INSTALL_DIR=/app/python
-ENV UV_PYTHON_BIN_DIR=/app/bin
-ENV PATH="/app/bin:$PATH"
-
-# Install the correct python version
-RUN --mount=type=bind,source=.python-version,target=/app/.python-version \
-    uv python install
-
 # Enable bytecode compilation
 ENV UV_COMPILE_BYTECODE=1
+
 # Copy from the cache instead of linking since it's a mounted volume
 ENV UV_LINK_MODE=copy
 
@@ -37,16 +14,16 @@ ENV UV_LINK_MODE=copy
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --no-dev --extra gpu --extra frontend --locked --no-install-project
+    uv sync --no-dev --locked --no-install-project
 
 COPY . /app
 
 # Install the project
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --no-dev --extra gpu --extra frontend --locked
+    uv sync --no-dev --locked
 
-# Use a NVIDIA CUDA runtime image as runner
-FROM docker.io/nvidia/cuda:13.3.0-cudnn-runtime-ubuntu24.04@sha256:95c91edfddb448d236689f572725b8421f3e51a6808f11e37ba6834dc57b12c8 AS runner
+# Use slim image as runner
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim@sha256:531f855bda2c73cd6ef67d56b733b357cea384185b3022bd09f05e002cd144ca AS runner
 
 # Metadata for the image
 ARG IMAGE_CREATED="unknown"
@@ -57,12 +34,12 @@ LABEL org.opencontainers.image.authors='Fabian Reinold <contact@freinold.eu>' \
     org.opencontainers.image.created="$IMAGE_CREATED" \
     org.opencontainers.image.revision="$IMAGE_REVISION" \
     org.opencontainers.image.version="$IMAGE_VERSION" \
-    org.opencontainers.image.url='https://github.com/freinold/gliner-api/pkgs/container/gliner-api-gpu' \
+    org.opencontainers.image.url='https://ghcr.io/freinold/gliner-api' \
     org.opencontainers.image.documentation='https://github.com/freinold/gliner-api/README.md' \
     org.opencontainers.image.source='https://github.com/freinold/gliner-api' \
     org.opencontainers.image.licenses='MIT' \
     org.opencontainers.image.title='gliner-api' \
-    org.opencontainers.image.description='Easily configurable API & frontend providing simple access to dynamic NER models; this image is built for GPU only.'
+    org.opencontainers.image.description='Easily configurable API & frontend providing simple access to dynamic NER models.'
 
 # Install the project into `/app`
 WORKDIR /app
