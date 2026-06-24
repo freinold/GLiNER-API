@@ -25,7 +25,7 @@ def main() -> None:
             metrics_server, metrics_thread = start_http_server(addr=config.host, port=config.metrics_port)
             logger.info(f"Prometheus metrics server started at http://{config.host}:{config.metrics_port}")
 
-        @app.on_event("shutdown")
+        @app.on_event("shutdown")  # type: ignore
         async def close_metrics_server():
             metrics_server.shutdown()
             metrics_thread.join()
@@ -45,7 +45,7 @@ def main() -> None:
             show_api=False,
         )
 
-        @app.on_event("shutdown")
+        @app.on_event("shutdown")  # type: ignore
         async def close_httpx_client():
             await client.aclose()
 
