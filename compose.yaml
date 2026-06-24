@@ -1,7 +1,7 @@
 name: gliner-api
 services:
   gliner-api:
-    image: ghcr.io/freinold/gliner-api:latest
+    image: ghcr.io/freinold/gliner-api:latest@sha256:dc00a437c096adfe8e679a5f5c658febb9f673f063f63957542b1c27a8e1d5c9
     ## Alternatively, you can build the image locally
     # build:
     #   context: .
