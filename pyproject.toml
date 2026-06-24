@@ -29,4 +29,4 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [dependency-groups]
-dev = ["ipykernel==7.2.0", "pre-commit==4.6.0", "ruff==0.15.14", "ty==0.0.39"]
+dev = ["ipykernel==7.3.0", "pre-commit==4.6.0", "ruff==0.15.19", "ty==0.0.53"]
