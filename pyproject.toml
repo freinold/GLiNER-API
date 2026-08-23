@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = "==3.14.5"
 dependencies = [
     "fastapi[standard]==0.141.1",
-    "gitpython==3.1.55",
+    "gitpython==3.1.58",
     "huggingface-hub==1.28.0",
     "prometheus-client==0.26.0",
     "pydantic-settings==2.15.0",
