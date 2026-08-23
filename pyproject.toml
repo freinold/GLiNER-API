@@ -5,16 +5,16 @@ description = "Easily configurable API & frontend providing simple access to dyn
 readme = "README.md"
 requires-python = "==3.14.7"
 dependencies = [
-    "fastapi[standard]==0.138.0",
-    "gitpython==3.1.55",
-    "huggingface-hub==1.20.1",
-    "prometheus-client==0.25.0",
-    "pydantic-settings==2.14.2",
-    "uvicorn[standard]==0.49.0",
+    "fastapi[standard]==0.141.1",
+    "gitpython==3.1.58",
+    "huggingface-hub==1.28.0",
+    "prometheus-client==0.26.0",
+    "pydantic-settings==2.15.0",
+    "uvicorn[standard]==0.52.4",
     "torch==2.13.0",
-    "gliner[stanza]==0.2.27",
-    "onnxruntime==1.27.0",
-    "gradio==6.19.0",
+    "gliner[stanza]==0.2.28",
+    "onnxruntime==1.29.0",
+    "gradio==6.25.0",
     "httpx==0.28.1",
     "stamina==26.1.0",
 ]
@@ -29,4 +29,4 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [dependency-groups]
-dev = ["ipykernel==7.3.0", "pre-commit==4.6.0", "ruff==0.15.19", "ty==0.0.53"]
+dev = ["ipykernel==7.3.0", "pre-commit==4.6.2", "ruff==0.16.4", "ty==0.0.74"]
